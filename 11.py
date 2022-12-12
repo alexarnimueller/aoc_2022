@@ -43,7 +43,7 @@ def parse():
     return monkeys
 
 
-def get_modulo(l: list = None):
+def get_modulo_divider(l: list = None):
     rslt = 1
     if l:
         for v in l:
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     
     mkcnt2 = defaultdict(int)
     mks2 = parse()
-    modulo = get_modulo([m.test for m in mks1.values()])
+    modulo = get_modulo_divider([m.test for m in mks1.values()])
     for _ in range(10000):
         iterate(mks2, mkcnt2, modulo=modulo)
     vals = sorted(mkcnt2.values())
