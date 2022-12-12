@@ -18,23 +18,30 @@ for i in range(1, forest.shape[0]-1):
             continue
 print("First result :", total1)
 
-total2 = 0
-directions = [[-1, 0], [0, 1], [1, 0], [0, -1]]
+total2 = 1
 for i in range(forest.shape[0]):
     for j in range(forest.shape[1]):
-        score = 1
-        for di, dj in directions:
-            d = 1
-            ii, jj = i+di, j+dj
-            while True:
-                if not (0 <= ii < forest.shape[0] and 0 <= jj < forest.shape[1]):
-                    d -= 1
-                    break
-                if forest[ii, jj] >= forest[i, j]:
-                    break
+        c = forest[i, j]
+        l, r, u, d = 1, 1, 1, 1
+        for t in forest[:i, j][::-1]:
+            if t < c:
                 d += 1
-                ii, jj = ii+di, jj+dj
-            score *= d
-        total2 = max(total2, score)
+            else:
+                break
+        for t in forest[i, :j][::-1]:
+            if t < c:
+                l += 1
+            else:
+                break
+        for t in forest[i+1:, j]:
+            if t < c:
+                u += 1
+            else:
+                break
+        for t in forest[i, j+1:]:
+            if t < c:
+                r += 1
+            else:
+                break
+        total2 = max(total2, l*r*u*d)
 print("Second result: ", total2)
-
